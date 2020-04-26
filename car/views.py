@@ -21,10 +21,10 @@ def list_car(request):
     # else:
     colors = CarColor.objects.all()
     if 'color' in request.GET:
-        cars = Car.objects.filter(color__name__exact=request.GET['color'])
+        cars = Car.objects.filter(color__name__exact=request.GET['color']).order_by("sequence")
         return render(request, "includes/list_snippet.html", {'cars': cars, 'colors': cars})
     else:
-        cars = Car.objects.all()
+        cars = Car.objects.all().order_by("sequence")
 
     return render(request, "list_car.html", {'cars': cars, 'colors': colors})
 
@@ -52,3 +52,21 @@ def update_car(request, id):
         return redirect('list_car')
 
     return render(request, "create_car.html", {'form': form})
+
+def update_order(request):
+    last_car_id = request.GET['last_car_id']
+    id = request.GET['id']
+    last_car = Car.objects.get(id=last_car_id)
+    move_car = Car.objects.get(id=id)
+
+    move_car.sequence=last_car.sequence+1
+    move_car.save()
+    start_sequence = move_car.sequence
+    all_cars = Car.objects.filter(sequence__gt=last_car.sequence).exclude(id=move_car.id)
+    for car in all_cars:
+        car.sequence = start_sequence + 1
+        car.save()
+        start_sequence+=1
+    print(all_cars)
+
+    return redirect('list_car')

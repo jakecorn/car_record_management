@@ -1,5 +1,6 @@
 {% for car in cars%}
-      <tr>
+      <tr car-id="{{car.id}}">
+            <td>{{car.sequence}}</td>
             <td>{{car.name}}</td>
             <td>{{car.color}}</td>
             <td class="text-center">
