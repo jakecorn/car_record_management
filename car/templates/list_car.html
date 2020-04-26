@@ -1,0 +1,35 @@
+<form>
+      Filter by Color:
+      <select name="color">
+            {% for color in colors%}
+                  <option>{{color.name}}</option>
+            {% endfor %}
+      </select>
+      <input type="submit" value="Save">
+</form>
+
+<table border="1" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Car Name</th>
+      <th scope="col">Color</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for car in cars%}
+            <tr>
+                  <td>{{car.name}}</td>
+                  <td>{{car.color}}</td>
+                  <td>
+                        <a href="{% url 'delete_car' id=car.id %}">Delete</a>
+                        <a href="{% url 'update_car' id=car.id %}">Update</a>
+                  </td>
+            </tr>
+      {% endfor %}
+
+</table>
+
+ {% for msg in messages%}
+          <p>{{msg}}</p>
+{% endfor %}
