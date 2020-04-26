@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<form id="create_form" method="POST">
+<h3>Create/Update Car Record</h3>
+<i>Please add the color records at the backend.</i>
+<form id="create_form" method="POST" class="mt-3">
       {% csrf_token %}
       {{form}}
       <input type="submit" class="btn btn-success w-100 mt-3"value="Save">

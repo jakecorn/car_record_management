@@ -14,7 +14,6 @@ class Car(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            # here must to find the last order then sum one and save the result
             car = Car.objects.all().aggregate(Max('sequence'))
             print(car)
             if  car['sequence__max'] is not None:
