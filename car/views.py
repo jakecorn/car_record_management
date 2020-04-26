@@ -10,6 +10,8 @@ def create_car(request):
     if request.method == "POST":
         form = CarForm(request.POST)
         form.save()
+        messages.info(request, "The record has  been created")
+        return redirect('list_car')
     else:
         form = CarForm(None)
     return render(request, "create_car.html", {'form': form})
@@ -17,14 +19,13 @@ def create_car(request):
 def list_car(request):
     # if request.method == "POST":
     # else:
-
+    colors = CarColor.objects.all()
     if 'color' in request.GET:
         cars = Car.objects.filter(color__name__exact=request.GET['color'])
-        print(request.GET['color'])
+        return render(request, "includes/list_snippet.html", {'cars': cars, 'colors': cars})
     else:
         cars = Car.objects.all()
 
-    colors = CarColor.objects.all()
     return render(request, "list_car.html", {'cars': cars, 'colors': colors})
 
 def delete_car(request, id):

@@ -1,35 +1,50 @@
-<form>
-      Filter by Color:
-      <select name="color">
-            {% for color in colors%}
-                  <option>{{color.name}}</option>
-            {% endfor %}
-      </select>
-      <input type="submit" value="Save">
-</form>
+{% extends 'layout.html' %}
 
-<table border="1" class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Car Name</th>
-      <th scope="col">Color</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for car in cars%}
-            <tr>
-                  <td>{{car.name}}</td>
-                  <td>{{car.color}}</td>
-                  <td>
-                        <a href="{% url 'delete_car' id=car.id %}">Delete</a>
-                        <a href="{% url 'update_car' id=car.id %}">Update</a>
-                  </td>
-            </tr>
+{% block content %}
+      {% for msg in messages%}
+          <div class="alert alert-success" role="alert">
+              {{msg}}
+          </div>
       {% endfor %}
+      <form>
+            Filter by Color:
+            <select id="color_filter" name="color" class="form-control mt-3">
+                  {% for color in colors%}
+                        <option>{{color.name}}</option>
+                  {% endfor %}
+            </select>
+      </form>
 
-</table>
+      <table id="car_list_table" border="1" class="table table-striped w-100 mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Car Name</th>
+            <th scope="col">Color</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+            <tbody>
+                  {% include "includes/list_snippet.html" %}
+            </tbody>
+      </table>
 
- {% for msg in messages%}
-          <p>{{msg}}</p>
-{% endfor %}
+      <div id="delete_confirmation" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Record</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete the record?</p>
+            </div>
+            <div class="modal-footer">
+                  <a href="#" id="delete_link"><button type="button" class="btn btn-primary">Yes</button></a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock%}

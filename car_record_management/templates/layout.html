@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta charset="utf-8">
+        <title>Car Record Management</title>
+        <script  src="{% static 'js/jquery-3.5.0.min.js'%}"></script>
+        <script  src="{% static 'js/bootstrap.js'%}"></script>
+        <script  src="{% static 'js/custom.js'%}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css'%}">
+  </head>
+  <body>
+      <div class="container mt-5">
+             <div class="row">
+                  <div class="col col-12 col-md-8  order-2 order-md-1">
+                        {% block content %}
+                        {% endblock%}
+                  </div>
+                  <div class="col col-12 col-md-4  order-1 order-md-2">
+                        <div style="border: 1px solid #efefef; border-radius: 8px">
+                              <div class="p-3 text-white" style="background-color: #007bff; border-top-right-radius: 8px; border-top-left-radius: 8px">Menu Links</div>
+
+                              <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="{% url 'create_car' %}">Register Car</a></li>
+                                    <li class="list-group-item"><a href="{% url 'list_car' %}">Car List</a></li>
+                              </ul>
+                        </div>
+
+                  </div>
+             </div>
+      </div >
+  </body>
+</html>

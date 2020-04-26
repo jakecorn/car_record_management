@@ -1,5 +1,9 @@
-<form method="POST">
+{% extends 'layout.html' %}
+
+{% block content %}
+<form id="create_form" method="POST">
       {% csrf_token %}
       {{form}}
-      <input type="submit" value="Save">
+      <input type="submit" class="btn btn-success w-100 mt-3"value="Save">
 </form>
+{% endblock %}

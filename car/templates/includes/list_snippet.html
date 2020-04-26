@@ -1,0 +1,12 @@
+{% for car in cars%}
+      <tr>
+            <td>{{car.name}}</td>
+            <td>{{car.color}}</td>
+            <td class="text-center">
+                  <button class="btn btn-sm btn-warning delete_car" delete-link="{% url 'delete_car' id=car.id %}" car-id="{{car.id}}">Delete</button>
+                  <a href="{% url 'update_car' id=car.id %}">
+                        <button class="btn btn-sm btn-success">Update</button>
+                  </a>
+            </td>
+      </tr>
+{% endfor %}
